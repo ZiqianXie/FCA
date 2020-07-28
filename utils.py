@@ -13,12 +13,14 @@ class FormalContext:
                 self.context_transposed[attr].add(k)
         self.attributes = sorted(set(self.context_transposed.keys()).difference({frozenset()}))
         self.context[frozenset()] = set(self.attributes)
+        self.concept = set(self._concept_generation())
 
     def add_unused_attributes(self, attrs):
         for attr in attrs:
             self.context_transposed[attr] = set()
             self.context[frozenset()].add(attr)
         self.attributes = sorted(set(self.context_transposed.keys()).difference({frozenset()}))
+        self.concept = set(self._concept_generation())
 
     def _closure(self, some_set: set, obj_type: bool) -> Tuple[frozenset, frozenset]:
         if obj_type:
@@ -49,7 +51,7 @@ class FormalContext:
                     return C, B
         return None
 
-    def concept_generation(self) -> Iterator[Tuple[frozenset, frozenset]]:
+    def _concept_generation(self) -> Iterator[Tuple[frozenset, frozenset]]:
         # assume the number of objects is larger than the number of attributes
         A = self.attr_closure(set())
         while A is not None:

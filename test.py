@@ -9,7 +9,7 @@ triangle = {"T1": {'b', 'd'},
             "T6": {'b', 'c'},
             "T7": {'e'}}
 fc = FormalContext(triangle)
-for concept in fc.concept_generation():
+for concept in fc._concept_generation():
     print(concept)
 
 star_alliance = {"Air Canada": {"Latin America", "Europe", "Canada", "Asian Pacific", "Middle East", "Mexico",
@@ -37,7 +37,7 @@ fc1.attr_closure({"Latin America", "Canada", "Middle East"})
 fc1.attributes = ["Latin America", "Europe", "Canada", "Asian Pacific", "Middle East", "Africa", "Mexico", "Caribbean",
                   "United States"]
 fc1._next_closure({"Latin America", "Canada", "Mexico", "Caribbean", "United States"})
-len(set(fc1.concept_generation()))
+len(fc1.concept)
 p4 = {1: {'a', 'c', 'f'},
       2: {'b', 'd', 'f'},
       3: {'b', 'c', 'e', 'f'},
@@ -59,4 +59,4 @@ p5 = {1: {'b', 'c', 'e', 'f'},
       10: {'b', 'c', 'd', 'e', 'f'}}
 fc3 = FormalContext(p5)
 fc3.add_unused_attributes(['a'])
-len(set(fc3.concept_generation()))
+len(fc3.concept)
