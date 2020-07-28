@@ -29,7 +29,7 @@ class FormalContext:
             set0 = set0.intersection(dict0[element])
         for element in set0.union(frozenset()):
             set1 = set1.intersection(dict1[element])
-        return frozenset(set1), frozenset(set0)
+        return frozenset(set0), frozenset(set1)
 
     def obj_closure(self, objects: set) -> Tuple[frozenset, frozenset]:
         return self._closure(objects, True)
@@ -44,9 +44,9 @@ class FormalContext:
             if m in A:
                 A.remove(m)
             else:
-                B, C = self.attr_closure(A.union({m}))
+                C, B = self.attr_closure(A.union({m}))
                 if not B.difference(A).intersection(self.attributes[:i]):
-                    return B, C
+                    return C, B
         return None
 
     def concept_generation(self) -> Iterator[Tuple[frozenset, frozenset]]:
@@ -54,6 +54,6 @@ class FormalContext:
         A = self.attr_closure(set())
         while A is not None:
             yield A
-            A = self._next_closure(A[0])
+            A = self._next_closure(A[1])
 
 
